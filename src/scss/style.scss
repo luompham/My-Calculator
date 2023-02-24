@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    width: 83.75px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+}
+
+body {
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .app-container {
+        width: 335px;
+        margin: auto;
+
+        .screen {
+            width: 100%;
+            height: 60px;
+            background-color: black;
+            color: white;
+
+            div {
+                height: 30px;
+            }
+
+        }
+
+        .buttons {
+
+
+            .AC-devide-multiply-btn {
+
+
+                div {
+                    width: 50%;
+                    height: 60px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+            }
+
+
+            .number-equal-container {
+                .numbers-btn {
+                    flex: 3;
+                    width: 100%;
+                    flex-wrap: wrap-reverse;
+
+
+                }
+
+                .sub-add-equal-wrapper {
+                    flex: 1;
+
+                }
+
+            }
+
+
+
+        }
+
+
+
+    }
+
+}
