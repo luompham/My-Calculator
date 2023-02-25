@@ -1,56 +1,154 @@
+class Screen extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+
+    //     return typeof Number(nextProps) === 'number';
+
+    // }
+
+    render() {
+
+        return (
+            <>
+                <div className='screen__input'>num: {this.props.value}</div>
+
+                <div className='screen__result'>res: {this.props.result}</div>
+            </>
+
+        )
+
+    }
+
+
+}
+
+
+
+
 class App extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            input: 0,
-            countInput: 0,
+            num: 0,
+            sign: '',
+            res: 0
         };
 
         this.clickNumber = this.clickNumber.bind(this);
         this.clearInput = this.clearInput.bind(this);
+        this.clickDecimalPoint = this.clickDecimalPoint.bind(this);
+        this.clickSign = this.clickSign.bind(this);
+        this.clickEqual = this.clickEqual.bind(this);
 
     };
 
     clickNumber(event) {
 
-        // console.log(typeof Number(event.target.innerHTML));
-        const number = event.target.innerHTML;
+        event.preventDefault();
 
-        // switch (number+this.state.input) {
-        //     case '.':
+        const value = event.target.innerHTML;
 
-        //     case 
-        //         break;
+        if (this.state.num.toString().length < 16) {
 
-        //     default:
-        //         break;
-        // }
+            this.setState({
 
+                num: this.state.num === 0 && value === '0'
+                    ? '0'
+                    : this.state.num % 1 === 0
+                        ? Number(this.state.num + value)
+                        : this.state.num + value,
+                res: !this.state.res ? 0 : this.state.res
 
-        this.setState((prev) => {
-            return { input: parseInt(`${prev.input}${number}`, 10) }
-        })
+            })
 
+        }
 
-
-
-        console.log('input: ', typeof this.state.input);
+    };
 
 
+    clickDecimalPoint(event) {
+
+        event.preventDefault();
+
+        const value = event.target.innerHTML;
+
+        this.setState({
+
+            num: !this.state.num.toString().includes('.') ? this.state.num + value : this.state.num
+
+        });
 
 
 
     }
+
+
+    clickSign(event) {
+        event.preventDefault();
+
+        const value = event.target.innerHTML;
+
+        this.setState({
+            sign: value,
+            res: !this.state.res && this.state.num ? this.state.num : this.state.res,
+            num: 0
+
+        })
+        // console.log(this.state.sign)
+
+    }
+
+
+    clickEqual() {
+
+        if (this.state.num && this.state.sign) {
+
+            const math = (a, b, sign) => {
+                sign === '+'
+                    ? a + b
+                    : sign === '-'
+                        ? a - b
+                        : sign === 'X'
+                            ? a * b
+                            : a / b
+
+            };
+
+            this.setState({
+                res: math(Number(this.state.res), Number(this.state.num), this.state.sign),
+                sign: ''
+            })
+
+
+
+
+
+        }
+
+    }
+
+
+
 
 
 
     clearInput() {
 
-        this.setState({ input: 0 });
+        this.setState({
+            num: 0,
+            res: 0
+        });
 
     }
+
+
 
 
 
@@ -64,9 +162,8 @@ class App extends React.Component {
 
                     <div className='screen'>
 
-                        <div className='screen__input'>{this.state.input}</div>
+                        <Screen value={this.state.num} result={this.state.res} />
 
-                        <div className='screen__result'>{this.state.input}</div>
 
                     </div>
 
@@ -78,8 +175,8 @@ class App extends React.Component {
 
                             <div className='devide-multiply-btn flex'>
 
-                                <div className='devided'>/</div>
-                                <div className='multiple'>X</div>
+                                <div onClick={this.clickSign} className='devided'>/</div>
+                                <div onClick={this.clickSign} className='multiple'>X</div>
 
 
                             </div>
@@ -90,7 +187,7 @@ class App extends React.Component {
 
                             <div className='numbers-btn flex'>
 
-                                <div onClick={this.clickNumber} className='btn'>.</div>
+                                <div onClick={this.clickDecimalPoint} className='btn'>.</div>
                                 <div onClick={this.clickNumber} className='btn'>0</div>
                                 <div onClick={this.clickNumber} className='btn'>1</div>
                                 <div onClick={this.clickNumber} className='btn'>2</div>
@@ -108,26 +205,17 @@ class App extends React.Component {
 
                                 <div className='subtract-add-btn'>
 
-                                    <div className='subtract btn'>-</div>
-                                    <div className='add btn'>+</div>
+                                    <div onClick={this.clickSign} className='subtract btn'>-</div>
+                                    <div onClick={this.clickSign} className='add btn'>+</div>
 
                                 </div>
 
-                                <div className='btn' id='equals'>=</div>
+                                <div onClick={this.clickEqual} className='btn' id='equals'>=</div>
                             </div>
 
                         </div>
 
                     </div>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -144,6 +232,7 @@ class App extends React.Component {
     }
 
 }
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

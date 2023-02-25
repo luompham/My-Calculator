@@ -16,7 +16,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #333;
+  background-color: #59a5ec;
 }
 
 body {
@@ -32,8 +32,8 @@ body .app-container {
 body .app-container .screen {
   width: 100%;
   height: 60px;
-  background-color: black;
-  color: white;
+  background-color: #59a5ec;
+  color: black;
 }
 body .app-container .screen div {
   height: 30px;
