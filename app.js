@@ -18,6 +18,8 @@ class Screen extends React.Component {
                 <div className='screen__input'>num: {this.props.value}</div>
 
                 <div className='screen__result'>res: {this.props.result}</div>
+
+                <div className='screen__result'>sign: {this.props.sign}</div>
             </>
 
         )
@@ -36,9 +38,10 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            num: 0,
+            num: '',
             sign: '',
-            res: 0
+            res: 0,
+            decimal: ''
         };
 
         this.clickNumber = this.clickNumber.bind(this);
@@ -61,16 +64,36 @@ class App extends React.Component {
 
                 num: this.state.num === 0 && value === '0'
                     ? '0'
-                    : this.state.num % 1 === 0
+                    : this.state.num % 1 === 0 && !this.state.num.toString().includes('.')
                         ? Number(this.state.num + value)
                         : this.state.num + value,
-                res: !this.state.res ? 0 : this.state.res
+
+                // !this.state.res ? 0 : this.state.res
 
             })
 
+
+            this.setState((prevNum) => {
+                return {
+                    res: this.state.sign === ''
+                        ? prevNum.num
+                        : this.state.num.includes('+' || '-' || 'X' || '/')
+                            ? value
+                            : this.state.sign,
+
+                }
+            });
+
+
+
+
         }
 
+        // console.log(this.state.res)
+
+
     };
+
 
 
     clickDecimalPoint(event) {
@@ -79,12 +102,30 @@ class App extends React.Component {
 
         const value = event.target.innerHTML;
 
+        const positionSign = this.state.num.toString().lastIndexOf(this.state.sign)
+        const positionDecimal = this.state.num.toString().lastIndexOf('.')
+
+
         this.setState({
 
-            num: !this.state.num.toString().includes('.') ? this.state.num + value : this.state.num
+            decimal: value,
+            num: this.state.num === '' && value === '.' ? '0.' :
+                !this.state.num.toString().includes('.') || positionSign > positionDecimal
+                    ? this.state.num + value
+                    : positionSign < positionDecimal && value === '.' ? this.state.num + ''
+
+                        : this.state.num,
+
 
         });
 
+        this.setState((prevNum) => {
+            return { res: prevNum.num }
+        });
+
+
+
+        return console.log(this.state.num.toString().lastIndexOf('+' || '-' || 'X' || '/'))
 
 
     }
@@ -95,12 +136,22 @@ class App extends React.Component {
 
         const value = event.target.innerHTML;
 
-        this.setState({
-            sign: value,
-            res: !this.state.res && this.state.num ? this.state.num : this.state.res,
-            num: 0
+        // this.setState({
+        //     sign: value,
+        //     res: !this.state.res && this.state.num ? this.state.num : this.state.res,
+        //     num: 0
 
-        })
+        // })
+
+        this.setState((prevNum) => {
+            return {
+                sign: value,
+                res: value,
+                num: prevNum.num + value
+            }
+        });
+
+
         // console.log(this.state.sign)
 
     }
@@ -108,29 +159,48 @@ class App extends React.Component {
 
     clickEqual() {
 
-        if (this.state.num && this.state.sign) {
+        //   const value = this.state.num.toString().replace(/X/g, '*')
+        // return console.log(value)
 
-            const math = (a, b, sign) => {
-                sign === '+'
-                    ? a + b
-                    : sign === '-'
-                        ? a - b
-                        : sign === 'X'
-                            ? a * b
-                            : a / b
+        if (this.state.num.toString().includes('X')) {
 
-            };
+            const value = this.state.num.toString().replace(/X/g, '*')
+            this.setState({
+                res: eval(value),
+                sign: '',
+                num: 0
+            })
+        } else {
 
             this.setState({
-                res: math(Number(this.state.res), Number(this.state.num), this.state.sign),
-                sign: ''
+                res: eval(this.state.num),
+                sign: '',
+                num: 0
             })
-
-
-
-
-
         }
+
+
+
+
+        // if (this.state.num && this.state.sign) {
+
+        //     // const math = (a, b, sign) => {
+        //     //     return (
+
+        //     //         sign === '+' ? a + b : sign === '-' ? a - b : sign === 'X' ? a * b : a / b
+
+        //     //     )
+
+
+        //     // }
+
+
+
+
+
+
+
+        // }
 
     }
 
@@ -142,8 +212,9 @@ class App extends React.Component {
     clearInput() {
 
         this.setState({
-            num: 0,
-            res: 0
+            num: '',
+            res: 0,
+            sign: ''
         });
 
     }
@@ -162,7 +233,7 @@ class App extends React.Component {
 
                     <div className='screen'>
 
-                        <Screen value={this.state.num} result={this.state.res} />
+                        <Screen sign={this.state.sign} value={this.state.num} result={this.state.res} />
 
 
                     </div>

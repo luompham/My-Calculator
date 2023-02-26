@@ -24,6 +24,9 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 body .app-container {
   width: 335px;
