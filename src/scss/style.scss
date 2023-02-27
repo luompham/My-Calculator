@@ -11,13 +11,13 @@
 }
 
 .btn {
-    width: 83.75px;
-    height: 60px;
+    // width: 80px;
+    // height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #59a5ec;
-
+    border-radius: 3px;
 
 }
 
@@ -28,12 +28,12 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 700;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
     .app-container {
-        width: 335px;
+
         margin: auto;
 
         .screen {
@@ -51,35 +51,108 @@ body {
         .buttons {
 
 
-            .AC-devide-multiply-btn {
+            height: 100%;
+
+            .grid-container {
+                display: grid;
+                grid-template-columns: 80px 80px 80px 80px;
+                grid-template-rows: 60px 60px 60px 60px;
+                grid-template-areas:
+                    'ac ac ac ac'
+                    'seven eight nine divide'
+                    'four five six multiply'
+                    'one two three subtract'
+                    'zero decimal equals add';
+                background-color: black;
+                padding: 10px;
+                gap: 10px;
 
 
-                div {
-                    width: 50%;
-                    height: 60px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                .grid-item {
+                    background-color: rgba(255, 255, 255, 0.8);
+                    border: 1px solid rgba(0, 0, 0, 0.8);
+                    // padding: 10px;
+                    font-size: 30px;
+                    text-align: center;
                 }
+
+
+                #zero {
+                    grid-area: zero;
+                }
+
+                #one {
+                    grid-area: one;
+                }
+
+                #two {
+                    grid-area: two;
+                }
+
+                #three {
+                    grid-area: three;
+                }
+
+                #four {
+                    grid-area: four;
+                }
+
+                #five {
+                    grid-area: five;
+                }
+
+                #six {
+                    grid-area: six;
+                }
+
+                #seven {
+                    grid-area: seven;
+                }
+
+                #eight {
+                    grid-area: eight;
+                }
+
+                #nine {
+                    grid-area: nine;
+                }
+
+                #add {
+                    grid-area: add;
+                }
+
+                #subtract {
+                    grid-area: subtract;
+                }
+
+                #multiply {
+                    grid-area: multiply;
+                }
+
+                #divide {
+                    grid-area: divide;
+                }
+
+                #equals {
+                    grid-area: equals;
+                }
+
+                #clear {
+                    grid-area: ac;
+                }
+
+                #decimal {
+                    grid-area: decimal;
+                }
+
+
 
             }
 
 
-            .number-equal-container {
-                .numbers-btn {
-                    flex: 3;
-                    width: 100%;
-                    flex-wrap: wrap-reverse;
 
 
-                }
 
-                .sub-add-equal-wrapper {
-                    flex: 1;
-
-                }
-
-            }
 
 
 

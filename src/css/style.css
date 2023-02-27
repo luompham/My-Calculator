@@ -11,12 +11,11 @@
 }
 
 .btn {
-  width: 83.75px;
-  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #59a5ec;
+  border-radius: 3px;
 }
 
 body {
@@ -24,12 +23,11 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 body .app-container {
-  width: 335px;
   margin: auto;
 }
 body .app-container .screen {
@@ -41,20 +39,74 @@ body .app-container .screen {
 body .app-container .screen div {
   height: 30px;
 }
-body .app-container .buttons .AC-devide-multiply-btn div {
-  width: 50%;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body .app-container .buttons {
+  height: 100%;
 }
-body .app-container .buttons .number-equal-container .numbers-btn {
-  flex: 3;
-  width: 100%;
-  flex-wrap: wrap-reverse;
+body .app-container .buttons .grid-container {
+  display: grid;
+  grid-template-columns: 80px 80px 80px 80px;
+  grid-template-rows: 60px 60px 60px 60px;
+  grid-template-areas: "ac ac ac ac" "seven eight nine divide" "four five six multiply" "one two three subtract" "zero decimal equals add";
+  background-color: black;
+  padding: 10px;
+  gap: 10px;
 }
-body .app-container .buttons .number-equal-container .sub-add-equal-wrapper {
-  flex: 1;
+body .app-container .buttons .grid-container .grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  font-size: 30px;
+  text-align: center;
+}
+body .app-container .buttons .grid-container #zero {
+  grid-area: zero;
+}
+body .app-container .buttons .grid-container #one {
+  grid-area: one;
+}
+body .app-container .buttons .grid-container #two {
+  grid-area: two;
+}
+body .app-container .buttons .grid-container #three {
+  grid-area: three;
+}
+body .app-container .buttons .grid-container #four {
+  grid-area: four;
+}
+body .app-container .buttons .grid-container #five {
+  grid-area: five;
+}
+body .app-container .buttons .grid-container #six {
+  grid-area: six;
+}
+body .app-container .buttons .grid-container #seven {
+  grid-area: seven;
+}
+body .app-container .buttons .grid-container #eight {
+  grid-area: eight;
+}
+body .app-container .buttons .grid-container #nine {
+  grid-area: nine;
+}
+body .app-container .buttons .grid-container #add {
+  grid-area: add;
+}
+body .app-container .buttons .grid-container #subtract {
+  grid-area: subtract;
+}
+body .app-container .buttons .grid-container #multiply {
+  grid-area: multiply;
+}
+body .app-container .buttons .grid-container #divide {
+  grid-area: divide;
+}
+body .app-container .buttons .grid-container #equals {
+  grid-area: equals;
+}
+body .app-container .buttons .grid-container #clear {
+  grid-area: ac;
+}
+body .app-container .buttons .grid-container #decimal {
+  grid-area: decimal;
 }
 
 /*# sourceMappingURL=style.css.map */
