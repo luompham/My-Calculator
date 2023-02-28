@@ -59,6 +59,7 @@ body .app-container .buttons .grid-container .grid-item {
 }
 body .app-container .buttons .grid-container #zero {
   grid-area: zero;
+  height: 60px;
 }
 body .app-container .buttons .grid-container #one {
   grid-area: one;

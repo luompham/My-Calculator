@@ -16,11 +16,17 @@ class Screen extends React.Component {
 
         return (
             <>
-                <div className='screen__input'>num: {this.props.value}</div>
+                <div className='screen__input'> {this.props.value}</div>
 
-                <div className='screen__result'>res: {this.props.result}</div>
 
-                <div className='screen__result'>sign: {this.props.sign}</div>
+                <div className='screen__result' id='display'>{this.props.result}
+
+
+                </div>
+
+
+
+
             </>
 
         )
@@ -39,7 +45,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            num: '',
+            num: 0,
             sign: '',
             res: 0,
             decimal: ''
@@ -88,19 +94,32 @@ class App extends React.Component {
                         ? Number(this.state.num + value)
                         : this.state.num + value,
 
-            })
-
-
-            this.setState((prevNum) => {
-                return {
+            }, () => {
+                this.setState({
                     res: this.state.sign === ''
-                        ? prevNum.num
-                        : this.state.num.includes('+' || '-' || 'X' || '/')
+                        ? this.state.num
+
+                        : stringNum.endsWith('+')
+                            || stringNum.endsWith('-')
+                            || stringNum.endsWith('X')
+                            || stringNum.endsWith('/') && value
                             ? value
                             : this.state.sign,
+                })
+            }
+            )
 
-                }
-            });
+
+            // this.setState((prevNum) => {
+            //     return {
+            //         res: this.state.sign === ''
+            //             ? prevNum.num
+            //             : this.state.num.includes('+' || '-' || 'X' || '/')
+            //                 ? value
+            //                 : this.state.sign,
+
+            //     }
+            // });
 
         }
 
@@ -119,33 +138,21 @@ class App extends React.Component {
         const positionSign = this.state.num.toString().lastIndexOf(this.state.sign)
         const positionDecimal = this.state.num.toString().lastIndexOf('.')
 
-
-        // this.setState((prevNum) => {
-
-        //     return {
-
-        //         decimal: value,
-        //         num: this.state.num === '' && value === '.'
-        //             || this.state.num.toString().endsWith('+' || '-' || 'X' || '/') && value === '.' ? this.state.num + '0.'
-        //             : !this.state.num.toString().includes('.')
-        //                 || this.state.num.toString().includes('+' || '-' || 'X' || '/') && positionSign > positionDecimal
-        //                 ? this.state.num + value
-        //                 : this.state.num,
-
-
-        //         res: prevNum.num + value
-        //     }
-
-        // })
-
+        const stringNum = this.state.num.toString();
 
         this.setState({
 
             decimal: value,
-            num: this.state.num === '' && value === '.'
-                || this.state.num.toString().endsWith('+' || '-' || 'X' || '/') && value === '.' ? this.state.num + '0.'
-                : !this.state.num.toString().includes('.')
-                    || this.state.num.toString().includes('+' || '-' || 'X' || '/') && positionSign > positionDecimal
+            num: (stringNum === '' && value === '.')
+
+                ||
+
+                ((stringNum.endsWith('+') || stringNum.endsWith('-') || stringNum.endsWith('X') || stringNum.endsWith('/')) && (value === '.'))
+
+                ? this.state.num + '0.'
+
+                : (!stringNum.includes('.') && value === '.')
+                    || ((stringNum.includes('+') || stringNum.includes('-') || stringNum.includes('X') || stringNum.includes('/')) && (positionSign > positionDecimal))
                     ? this.state.num + value
                     : this.state.num,
 
@@ -169,31 +176,39 @@ class App extends React.Component {
 
         const value = event.target.innerHTML;
 
-        // this.setState({
-        //     sign: value,
-        //     res: !this.state.res && this.state.num ? this.state.num : this.state.res,
-        //     num: 0
-
-        // })
-
-        this.setState((prevNum) => {
-            return {
+        this.setState(
+            {
                 sign: value,
                 res: value,
-                num: prevNum.num + value
+                num: (this.state.num === 0) && (value === '-' || value === '+' || value === 'X' || value === '/')
+
+                    ||
+
+                    (this.state.num === '-' || this.state.num === '+' || this.state.num === 'X' || this.state.num === '/')
+
+                    && (value === '-' || value === '+' || value === 'X' || value === '/')
+
+                    ? value
+
+                    : this.state.num + value
             }
-        });
+
+        );
 
 
-        // console.log(this.state.sign)
+
+
+
 
     }
 
 
-    clickEqual() {
+    clickEqual(event) {
 
-        //   const value = this.state.num.toString().replace(/X/g, '*')
-        // return console.log(value)
+        const inputEqual = event.target.innerHTML;
+
+        // return console.log(inputEqual)
+
 
         if (this.state.num.toString().includes('X')) {
 
@@ -201,15 +216,21 @@ class App extends React.Component {
             this.setState({
                 res: eval(value),
                 sign: '',
-                num: 0
-            })
+            }, () => {
+                this.setState({ num: inputEqual === '=' ? `${this.state.num} === ${this.state.res}` : this.state.num })
+            }
+            )
         } else {
 
             this.setState({
                 res: eval(this.state.num),
                 sign: '',
-                num: 0
-            })
+
+            }, () => {
+                this.setState({ num: inputEqual === '=' ? `${this.state.num} === ${this.state.res}` : this.state.num })
+            }
+            )
+
         }
 
 
@@ -223,7 +244,7 @@ class App extends React.Component {
     clearInput() {
 
         this.setState({
-            num: '',
+            num: 0,
             res: 0,
             sign: ''
         });
