@@ -55,14 +55,14 @@ body {
 
             .grid-container {
                 display: grid;
-                grid-template-columns: 80px 80px 80px 80px;
-                grid-template-rows: 60px 60px 60px 60px;
+                grid-template-columns: 60px 60px 60px 60px;
+                grid-template-rows: 40px 40px 40px 40px;
                 grid-template-areas:
-                    'ac ac ac ac'
-                    'seven eight nine divide'
-                    'four five six multiply'
-                    'one two three subtract'
-                    'zero decimal equals add';
+                    'ac ac divide multiply'
+                    'seven eight nine subtract'
+                    'four five six add'
+                    'one two three equals'
+                    'zero zero decimal new';
                 background-color: black;
                 padding: 10px;
                 gap: 10px;
@@ -79,7 +79,7 @@ body {
 
                 #zero {
                     grid-area: zero;
-                    height: 60px;
+                    height: 40px;
                 }
 
                 #one {

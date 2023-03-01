@@ -186,6 +186,7 @@ class App extends React.Component {
 
         const stringNum = this.state.num.toString();
 
+        const positionDecimal = this.state.num.toString().lastIndexOf('=')
 
 
         this.setState({
@@ -208,11 +209,8 @@ class App extends React.Component {
 
 
 
-                        : ((stringNum.endsWith('+-')) && (value === '/' || value === 'X'))
-
-                            ||
-
-                            ((stringNum.endsWith('--')) && (value === '/' || value === 'X' || value === '+'))
+                        : (stringNum.endsWith('--') || stringNum.endsWith('+-') || stringNum.endsWith('X-') || stringNum.endsWith('/-'))
+                            && (value === '/' || value === 'X' || value === '+')
 
                             ? stringNum.slice(0, -2) + this.state.sign
 
@@ -229,15 +227,17 @@ class App extends React.Component {
 
 
 
-
-
                                 : (stringNum.endsWith('--') || stringNum.endsWith('+-') || stringNum.endsWith('/-') || stringNum.endsWith('X-'))
                                     && (value === '-')
                                     ? this.state.num + ''
 
 
 
-                                    : this.state.num + value
+                                    : (stringNum.includes('=')) && (value === '+' || value === '-' || value === 'X' || value === '/')
+                                        ? stringNum.slice(positionDecimal + 1) + value
+
+
+                                        : this.state.num + value
 
 
 
