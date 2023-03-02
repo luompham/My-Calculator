@@ -45,7 +45,7 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            num: 0,
+            num: '',
             sign: '',
             res: 0,
             decimal: ''
@@ -56,6 +56,7 @@ class App extends React.Component {
         this.clickDecimalPoint = this.clickDecimalPoint.bind(this);
         this.clickSign = this.clickSign.bind(this);
         this.clickEqual = this.clickEqual.bind(this);
+        this.clickDeleteOne = this.clickDeleteOne.bind(this);
 
     };
 
@@ -64,17 +65,14 @@ class App extends React.Component {
         event.preventDefault();
 
         const value = event.target.innerHTML;
-
-        const lengthNum = this.state.num.toString().length
-
-        const stringNum = this.state.num.toString()
-
-        const positionSign = this.state.num.toString().lastIndexOf(this.state.sign)
-        const positionDecimal = this.state.num.toString().lastIndexOf('.')
+        const lengthNum = this.state.num.toString().length;
+        const stringNum = this.state.num.toString();
+        const positionSign = this.state.num.toString().lastIndexOf(this.state.sign);
+        const positionDecimal = this.state.num.toString().lastIndexOf('.');
+        const checkNumNotIncludeOperator = (!stringNum.includes('+') && !stringNum.includes('-') && !stringNum.includes('X') && !stringNum.includes('/'));
 
 
-
-        if ((lengthNum > 22) && (!stringNum.includes('+') && !stringNum.includes('-') && !stringNum.includes('X') && !stringNum.includes('/'))) {
+        if ((lengthNum > 22) && (checkNumNotIncludeOperator)) {
 
 
             this.setState({
@@ -159,8 +157,15 @@ class App extends React.Component {
                     ? this.state.num + value
                     : this.state.num,
 
-            res: this.state.num
 
+        }, () => {
+            this.setState({
+                res: ((stringNum.endsWith('+') || stringNum.endsWith('-') || stringNum.endsWith('X') || stringNum.endsWith('/')) && (value === '.'))
+                    ? '0.'
+                    : (stringNum.includes('.') && positionDecimal > positionSign) && (value === '.')
+                        ? stringNum.slice(positionSign + 1)
+                        : this.state.res
+            })
         }
 
         );
@@ -170,11 +175,13 @@ class App extends React.Component {
 
 
         this.setState({
-            res: (typeof Number(prevRes) === 'number') && value === '.' ? prevRes + value
-                : this.state.num
+            res: ((typeof Number(prevRes) === 'number') && (!prevRes.toString().includes('.'))) && (value === '.') ? prevRes + value
+                : this.state.res
         }
 
         );
+
+        //
 
     }
 
@@ -186,7 +193,7 @@ class App extends React.Component {
 
         const stringNum = this.state.num.toString();
 
-        const positionDecimal = this.state.num.toString().lastIndexOf('=')
+        const positionEqual = this.state.num.toString().lastIndexOf('=')
 
 
         this.setState({
@@ -234,7 +241,7 @@ class App extends React.Component {
 
 
                                     : (stringNum.includes('=')) && (value === '+' || value === '-' || value === 'X' || value === '/')
-                                        ? stringNum.slice(positionDecimal + 1) + value
+                                        ? stringNum.slice(positionEqual + 1) + value
 
 
                                         : this.state.num + value
@@ -255,28 +262,37 @@ class App extends React.Component {
     clickEqual(event) {
 
         const inputEqual = event.target.innerHTML;
+        const stringNum = this.state.num.toString();
+        const positionEqual = this.state.num.toString().lastIndexOf('=');
 
 
 
+        if (stringNum.includes('X')) {
 
-        if (this.state.num.toString().includes('X')) {
-
-            const value = this.state.num.toString().replace(/X/g, '*')
+            const value = stringNum.replace(/X/g, '*')
             this.setState({
                 res: eval(value),
                 sign: '',
             }, () => {
-                this.setState({ num: inputEqual === '=' ? `${this.state.num} === ${this.state.res}` : this.state.num })
+                this.setState({
+                    num: stringNum.includes('=') && inputEqual === '=' ? this.state.num
+                        : inputEqual === '=' ? `${this.state.num} === ${this.state.res}` : this.state.num,
+                    res: stringNum.includes('=') && inputEqual === '=' ? stringNum.slice(positionEqual + 1) : eval(value)
+                })
             }
             )
         } else {
 
             this.setState({
-                res: eval(this.state.num),
+                res: eval(stringNum),
                 sign: '',
 
             }, () => {
-                this.setState({ num: inputEqual === '=' ? `${this.state.num} === ${this.state.res}` : this.state.num })
+                this.setState({
+                    num: stringNum.includes('=') && inputEqual === '=' ? this.state.num
+                        : inputEqual === '=' ? `${this.state.num} === ${this.state.res}` : this.state.num,
+                    res: stringNum.includes('=') && inputEqual === '=' ? stringNum.slice(positionEqual + 1) : eval(stringNum)
+                })
             }
             )
 
@@ -288,12 +304,10 @@ class App extends React.Component {
 
 
 
-
-
     clearInput() {
 
         this.setState({
-            num: 0,
+            num: '',
             res: 0,
             sign: ''
         });
@@ -301,7 +315,17 @@ class App extends React.Component {
     }
 
 
+    clickDeleteOne() {
 
+
+        this.setState({
+            num: this.state.num.toString().slice(0, -1),
+            res: this.state.res.toString().slice(0, -1),
+
+        });
+
+
+    }
 
 
     render() {
@@ -318,20 +342,31 @@ class App extends React.Component {
         const arr = [[0, 'zero'], [1, 'one'], [2, 'two'], [3, 'three'], [4, 'four'],
         [5, 'five'], [6, 'six'], [7, 'seven'], [8, 'eight'], [9, 'nine'],
         ['+', 'add'], ['-', 'subtract'], ['X', 'multiply'], ['/', 'divide'],
-        ['=', 'equals'], ['AC', 'clear'], ['.', 'decimal']];
+        ['=', 'equals'], ['AC', 'clear'], ['.', 'decimal'], ['Clear', 'deleteOne']];
 
         const itemList = arr.map((item) => {
 
             return (
-                <div className='btn grid-item' key={item[1]} onClick={item[0] === 'AC'
-                    ? this.clearInput
-                    : item[0] === '+' || item[0] === '-' || item[0] === 'X' || item[0] === '/' ?
-                        this.clickSign
-                        : item[0] === '.'
-                            ? this.clickDecimalPoint
-                            : item[0] === '='
-                                ? this.clickEqual
-                                : this.clickNumber}
+                <div
+                    className={`btn grid-item ${item[0] === 'AC' || item[0] === 'Clear'
+                        ? 'danger'
+                        : item[0] === '='
+                            ? 'equals'
+                            : item[0] === '+' || item[0] === '-' || item[0] === 'X' || item[0] === '/'
+                                ? 'operators'
+                                : 'numbers'
+                        }`}
+                    key={item[1]} onClick={item[0] === 'AC'
+                        ? this.clearInput
+                        : item[0] === '+' || item[0] === '-' || item[0] === 'X' || item[0] === '/'
+                            ? this.clickSign
+                            : item[0] === '.'
+                                ? this.clickDecimalPoint
+                                : item[0] === '='
+                                    ? this.clickEqual
+                                    : item[0] === 'Clear'
+                                        ? this.clickDeleteOne
+                                        : this.clickNumber}
 
                     id={item[1]}
                 >

@@ -28,8 +28,8 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 500;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
     .app-container {
@@ -55,112 +55,122 @@ body {
 
             .grid-container {
                 display: grid;
-                grid-template-columns: 60px 60px 60px 60px;
-                grid-template-rows: 40px 40px 40px 40px;
+                grid-template-columns: 80px 80px 80px 80px;
+                grid-template-rows: 65px 65px 65px 65px;
                 grid-template-areas:
-                    'ac ac divide multiply'
-                    'seven eight nine subtract'
-                    'four five six add'
-                    'one two three equals'
-                    'zero zero decimal new';
+                    'clear clear deleteOne divide'
+                    'seven eight nine multiply'
+                    'four five six subtract'
+                    'one two three add'
+                    'zero zero decimal equals';
                 background-color: black;
-                padding: 10px;
-                gap: 10px;
+                padding: 3px;
+                gap: 1px;
 
+
+                :hover {
+                    transform: scale(1.1);
+                    box-shadow: 1px 1px 0.5;
+
+                }
 
                 .grid-item {
                     background-color: rgba(255, 255, 255, 0.8);
                     border: 1px solid rgba(0, 0, 0, 0.8);
                     // padding: 10px;
-                    font-size: 30px;
+                    font-size: 18px;
                     text-align: center;
+                    color: white;
+
+
+
+
                 }
 
+                $ids: (
+                    id0:zero,
+                    id1:one,
+                    id2:two,
+                    id3:three,
+                    id4:four,
+                    id5:five,
+                    id6:six,
+                    id7:seven,
+                    id8:eight,
+                    id9:nine,
+                    id10:add,
+                    id11:subtract,
+                    id12:multiply,
+                    id13:divide,
+                    id14:equals,
+                    id15:clear,
+                    id16:decimal,
+                    id17:deleteOne
+                );
 
-                #zero {
-                    grid-area: zero;
-                    height: 40px;
+            @each $key,
+            $id in $ids {
+                ##{$id} {
+                    grid-area: $id
                 }
-
-                #one {
-                    grid-area: one;
-                }
-
-                #two {
-                    grid-area: two;
-                }
-
-                #three {
-                    grid-area: three;
-                }
-
-                #four {
-                    grid-area: four;
-                }
-
-                #five {
-                    grid-area: five;
-                }
-
-                #six {
-                    grid-area: six;
-                }
-
-                #seven {
-                    grid-area: seven;
-                }
-
-                #eight {
-                    grid-area: eight;
-                }
-
-                #nine {
-                    grid-area: nine;
-                }
-
-                #add {
-                    grid-area: add;
-                }
-
-                #subtract {
-                    grid-area: subtract;
-                }
-
-                #multiply {
-                    grid-area: multiply;
-                }
-
-                #divide {
-                    grid-area: divide;
-                }
-
-                #equals {
-                    grid-area: equals;
-                }
-
-                #clear {
-                    grid-area: ac;
-                }
-
-                #decimal {
-                    grid-area: decimal;
-                }
-
-
-
             }
 
 
 
+            #zero {
 
+                height: 65px;
+            }
 
+            @mixin background-color($val) {
+                @if $val ==danger {
+                    background-color: rgb(193 21 21);
+                }
 
+                @else if $val ==operators {
+                    background-color: rgba(204, 204, 204, 0.7);
+                }
+
+                @else if $val ==equals {
+                    background-color: rgb(11, 110, 240);
+                }
+
+                @else {
+                    background-color: rgb(89, 90, 85);
+                }
+
+            }
+
+            .operators {
+                @include background-color(operators)
+            }
+
+            .equals {
+                @include background-color(equals)
+            }
+
+            .danger {
+                @include background-color(danger)
+            }
+
+            .numbers {
+                @include background-color(numbers)
+            }
 
 
         }
 
 
 
+
+
+
+
+
     }
+
+
+
+}
 
 }

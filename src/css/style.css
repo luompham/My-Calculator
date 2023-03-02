@@ -23,114 +23,113 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 500;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-
 body .app-container {
   margin: auto;
 }
-
 body .app-container .screen {
   width: 100%;
   height: 60px;
   background-color: #59a5ec;
   color: black;
 }
-
 body .app-container .screen div {
   height: 30px;
 }
-
 body .app-container .buttons {
   height: 100%;
 }
-
 body .app-container .buttons .grid-container {
   display: grid;
-  grid-template-columns: 60px 60px 60px 60px;
-  grid-template-rows: 40px 40px 40px 40px;
-  grid-template-areas: "ac ac divide multiply" "seven eight nine subtract" "four five six add" "one two three equals" "zero zero decimal new";
+  grid-template-columns: 80px 80px 80px 80px;
+  grid-template-rows: 65px 65px 65px 65px;
+  grid-template-areas: "clear clear deleteOne divide" "seven eight nine multiply" "four five six subtract" "one two three add" "zero zero decimal equals";
   background-color: black;
-  padding: 10px;
-  gap: 10px;
+  padding: 3px;
+  gap: 1px;
 }
-
+body .app-container .buttons .grid-container :hover {
+  transform: scale(1.1);
+  box-shadow: 1px 1px 0.5;
+}
 body .app-container .buttons .grid-container .grid-item {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
-  font-size: 30px;
+  font-size: 18px;
   text-align: center;
+  color: white;
 }
-
 body .app-container .buttons .grid-container #zero {
   grid-area: zero;
-  height: 40px;
 }
-
 body .app-container .buttons .grid-container #one {
   grid-area: one;
 }
-
 body .app-container .buttons .grid-container #two {
   grid-area: two;
 }
-
 body .app-container .buttons .grid-container #three {
   grid-area: three;
 }
-
 body .app-container .buttons .grid-container #four {
   grid-area: four;
 }
-
 body .app-container .buttons .grid-container #five {
   grid-area: five;
 }
-
 body .app-container .buttons .grid-container #six {
   grid-area: six;
 }
-
 body .app-container .buttons .grid-container #seven {
   grid-area: seven;
 }
-
 body .app-container .buttons .grid-container #eight {
   grid-area: eight;
 }
-
 body .app-container .buttons .grid-container #nine {
   grid-area: nine;
 }
-
 body .app-container .buttons .grid-container #add {
   grid-area: add;
 }
-
 body .app-container .buttons .grid-container #subtract {
   grid-area: subtract;
 }
-
 body .app-container .buttons .grid-container #multiply {
   grid-area: multiply;
 }
-
 body .app-container .buttons .grid-container #divide {
   grid-area: divide;
 }
-
 body .app-container .buttons .grid-container #equals {
   grid-area: equals;
 }
-
 body .app-container .buttons .grid-container #clear {
-  grid-area: ac;
+  grid-area: clear;
 }
-
 body .app-container .buttons .grid-container #decimal {
   grid-area: decimal;
+}
+body .app-container .buttons .grid-container #deleteOne {
+  grid-area: deleteOne;
+}
+body .app-container .buttons .grid-container #zero {
+  height: 65px;
+}
+body .app-container .buttons .grid-container .operators {
+  background-color: rgba(204, 204, 204, 0.7);
+}
+body .app-container .buttons .grid-container .equals {
+  background-color: rgb(11, 110, 240);
+}
+body .app-container .buttons .grid-container .danger {
+  background-color: rgb(193, 21, 21);
+}
+body .app-container .buttons .grid-container .numbers {
+  background-color: rgb(89, 90, 85);
 }
 
 /*# sourceMappingURL=style.css.map */
