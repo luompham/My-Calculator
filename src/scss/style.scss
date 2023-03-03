@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'Digital';
+    src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot');
+    src: url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix') format('embedded-opentype'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2') format('woff2'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff') format('woff'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf') format('truetype'),
+        url('//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7') format('svg');
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +34,7 @@
 
 body {
 
-
+    background-color: #c2c2d6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,16 +46,37 @@ body {
     .app-container {
 
         margin: auto;
+        border: 2px solid #47476b;
+        font-size: 20px;
+        background-color: black;
 
         .screen {
-            width: 100%;
-            height: 60px;
-            background-color: #59a5ec;
-            color: black;
+            width: 335px;
+            height: 100%;
+            color: white;
+            font-family: digital;
+            text-align: right;
+            padding: 5px;
 
-            div {
-                height: 30px;
+
+            .screen__result {
+                font-size: 30px;
+                word-wrap: break-word;
+
             }
+
+
+            .screen__input {
+                color: orange;
+                display: inline-block;
+                word-wrap: break-word;
+
+            }
+
+
+            // div {
+            //     height: 30px;
+            // }
 
         }
 
@@ -63,14 +95,15 @@ body {
                     'four five six subtract'
                     'one two three add'
                     'zero zero decimal equals';
-                background-color: black;
-                padding: 3px;
-                gap: 1px;
-
+                background-color: rgb(0, 0, 0);
+                padding: 5px;
+                gap: 5px;
 
                 :hover {
-                    transform: scale(1.1);
-                    box-shadow: 1px 1px 0.5;
+                    transform: scale(1.05);
+                    outline: 1px solid grey !important;
+                    color: black !important;
+
 
                 }
 
@@ -78,9 +111,12 @@ body {
                     background-color: rgba(255, 255, 255, 0.8);
                     border: 1px solid rgba(0, 0, 0, 0.8);
                     // padding: 10px;
-                    font-size: 18px;
+
                     text-align: center;
                     color: white;
+
+
+
 
 
 
@@ -124,19 +160,19 @@ body {
 
             @mixin background-color($val) {
                 @if $val ==danger {
-                    background-color: rgb(193 21 21);
+                    background-color: rgb(172 57 57);
                 }
 
                 @else if $val ==operators {
-                    background-color: rgba(204, 204, 204, 0.7);
+                    background-color: rgb(102 102 102);
                 }
 
                 @else if $val ==equals {
-                    background-color: rgb(11, 110, 240);
+                    background-color: rgb(0 68 102);
                 }
 
                 @else {
-                    background-color: rgb(89, 90, 85);
+                    background-color: rgb(77 77 77);
                 }
 
             }
@@ -160,7 +196,9 @@ body {
 
         }
 
-
+        .grid-container>div {
+            position: relative;
+        }
 
 
 

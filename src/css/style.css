@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Digital";
+  src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot");
+  src: url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff") format("woff"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.svg#Digital-7") format("svg");
+}
 * {
   margin: 0;
   padding: 0;
@@ -19,6 +24,7 @@
 }
 
 body {
+  background-color: #c2c2d6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,15 +35,26 @@ body {
 }
 body .app-container {
   margin: auto;
+  border: 2px solid #47476b;
+  font-size: 20px;
+  background-color: black;
 }
 body .app-container .screen {
-  width: 100%;
-  height: 60px;
-  background-color: #59a5ec;
-  color: black;
+  width: 335px;
+  height: 100%;
+  color: white;
+  font-family: digital;
+  text-align: right;
+  padding: 5px;
 }
-body .app-container .screen div {
-  height: 30px;
+body .app-container .screen .screen__result {
+  font-size: 30px;
+  word-wrap: break-word;
+}
+body .app-container .screen .screen__input {
+  color: orange;
+  display: inline-block;
+  word-wrap: break-word;
 }
 body .app-container .buttons {
   height: 100%;
@@ -47,18 +64,18 @@ body .app-container .buttons .grid-container {
   grid-template-columns: 80px 80px 80px 80px;
   grid-template-rows: 65px 65px 65px 65px;
   grid-template-areas: "clear clear deleteOne divide" "seven eight nine multiply" "four five six subtract" "one two three add" "zero zero decimal equals";
-  background-color: black;
-  padding: 3px;
-  gap: 1px;
+  background-color: rgb(0, 0, 0);
+  padding: 5px;
+  gap: 5px;
 }
 body .app-container .buttons .grid-container :hover {
-  transform: scale(1.1);
-  box-shadow: 1px 1px 0.5;
+  transform: scale(1.05);
+  outline: 1px solid grey !important;
+  color: black !important;
 }
 body .app-container .buttons .grid-container .grid-item {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
-  font-size: 18px;
   text-align: center;
   color: white;
 }
@@ -120,16 +137,19 @@ body .app-container .buttons .grid-container #zero {
   height: 65px;
 }
 body .app-container .buttons .grid-container .operators {
-  background-color: rgba(204, 204, 204, 0.7);
+  background-color: rgb(102, 102, 102);
 }
 body .app-container .buttons .grid-container .equals {
-  background-color: rgb(11, 110, 240);
+  background-color: rgb(0, 68, 102);
 }
 body .app-container .buttons .grid-container .danger {
-  background-color: rgb(193, 21, 21);
+  background-color: rgb(172, 57, 57);
 }
 body .app-container .buttons .grid-container .numbers {
-  background-color: rgb(89, 90, 85);
+  background-color: rgb(77, 77, 77);
+}
+body .app-container .buttons .grid-container > div {
+  position: relative;
 }
 
 /*# sourceMappingURL=style.css.map */

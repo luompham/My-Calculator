@@ -5,17 +5,14 @@ class Screen extends React.Component {
 
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-
-    //     return typeof Number(nextProps) === 'number';
-
-    // }
 
     render() {
 
 
         return (
             <>
+
+
                 <div className='screen__input'> {this.props.value.toString().includes('===') ? this.props.value.toString().replace(/===/g, '=') : this.props.value}</div>
 
 
@@ -23,6 +20,7 @@ class Screen extends React.Component {
 
 
                 </div>
+
 
 
 
@@ -48,7 +46,7 @@ class App extends React.Component {
             num: '',
             sign: '',
             res: 0,
-            decimal: ''
+            // decimal: '',
         };
 
         this.clickNumber = this.clickNumber.bind(this);
@@ -72,18 +70,18 @@ class App extends React.Component {
         const checkNumNotIncludeOperator = (!stringNum.includes('+') && !stringNum.includes('-') && !stringNum.includes('X') && !stringNum.includes('/'));
 
 
-        if ((lengthNum > 22) && (checkNumNotIncludeOperator)) {
+        if ((lengthNum === 22) && (checkNumNotIncludeOperator) && value) {
 
 
             this.setState({
                 res: 'DIGIT LIMIT MET'
             })
 
-            setTimeout(function () {
+            setTimeout(() => {
                 return (this.setState({
                     res: this.state.num
                 }))
-            }, 2000)
+            }, 1000)
 
         } else {
 
@@ -143,7 +141,7 @@ class App extends React.Component {
 
         this.setState({
 
-            decimal: value,
+            // decimal: value,
             num: (stringNum === '' && value === '.')
 
                 ||
@@ -281,6 +279,18 @@ class App extends React.Component {
                 })
             }
             )
+        } else if (stringNum === '' && inputEqual) {
+            this.setState({
+                sign: '',
+
+            }, () => {
+                this.setState({
+                    num: '=' + NaN,
+                    res: NaN.toString()
+                })
+            }
+            )
+
         } else {
 
             this.setState({
@@ -329,14 +339,6 @@ class App extends React.Component {
 
 
     render() {
-
-        // clearInput
-        // clickSign
-        // clickDecimalPoint
-        // clickNumber
-        // clickEqual
-
-
 
 
         const arr = [[0, 'zero'], [1, 'one'], [2, 'two'], [3, 'three'], [4, 'four'],
@@ -394,48 +396,6 @@ class App extends React.Component {
                     <div className='buttons'>
 
                         <div className='grid-container'>{itemList}
-
-                            {/* <div onClick={this.clearInput} className='clear-btn'>AC</div>
-
-                            <div className='devide-multiply-btn flex'>
-
-                                <div onClick={this.clickSign} className='devided'>/</div>
-                                <div onClick={this.clickSign} className='multiple'>X</div>
-
-
-                            </div> */}
-                        </div>
-
-
-                        <div className='number-equal-container flex'>
-
-                            <div className='numbers-btn flex'>
-
-                                {/* <div onClick={this.clickDecimalPoint} className='btn'>.</div>
-                                <div onClick={this.clickNumber} className='btn'>0</div>
-                                <div onClick={this.clickNumber} className='btn'>1</div>
-                                <div onClick={this.clickNumber} className='btn'>2</div>
-                                <div onClick={this.clickNumber} className='btn'>3</div>
-                                <div onClick={this.clickNumber} className='btn'>4</div>
-                                <div onClick={this.clickNumber} className='btn'>5</div>
-                                <div onClick={this.clickNumber} className='btn'>6</div>
-                                <div onClick={this.clickNumber} className='btn'>7</div>
-                                <div onClick={this.clickNumber} className='btn'>8</div>
-                                <div onClick={this.clickNumber} className='btn'>9</div> */}
-
-                            </div>
-
-                            <div className='sub-add-equal-wrapper'>
-
-                                <div className='subtract-add-btn'>
-
-                                    {/* <div onClick={this.clickSign} className='subtract btn'>-</div>
-                                    <div onClick={this.clickSign} className='add btn'>+</div> */}
-
-                                </div>
-
-                                {/* <div onClick={this.clickEqual} className='btn' id='equals'>=</div> */}
-                            </div>
 
                         </div>
 
